@@ -5,13 +5,14 @@ This module prints the instances.
 
 from models import storage
 from models.classes import classes
+import shlex
 
 
 def all_instances(args):
     """
     Prints all instances and instances of class if the class is provided.
     """
-    args_list = args.split()
+    args_list = shlex.split(args)
 
     if len(args_list) == 0:
         obj_dict = storage.all()

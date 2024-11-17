@@ -5,6 +5,7 @@ This module contains the show method for console.py.
 
 from models import storage
 from models.classes import classes
+import shlex
 
 
 def show_instance(args):
@@ -15,7 +16,7 @@ def show_instance(args):
     Returns:
         str: The string representation of the instance or an error message.
     """
-    args_list = args.split()
+    args_list = shlex.split(args)
 
     if len(args_list) == 0:
         return "** class name missing **"

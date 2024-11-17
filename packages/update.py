@@ -5,13 +5,14 @@ This module updates the attributes of an instance.
 
 from models import storage
 from models.classes import classes
+import shlex
 
 
 def update_instance(args):
     """
     Updates or adds an attribute to an instance based on the class name and ID.
     """
-    args_list = args.split()
+    args_list = shlex.split(args)
     if len(args_list) < 1:
         return "** class name missing **"
     if args_list[0] not in classes:

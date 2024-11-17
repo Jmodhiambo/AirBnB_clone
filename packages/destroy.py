@@ -5,6 +5,7 @@ This module provides functionality to delete an instance.
 
 from models import storage
 from models.classes import classes
+import shlex
 
 
 def destroy_instance(args):
@@ -12,7 +13,7 @@ def destroy_instance(args):
     Destroys an instance based on class name and id.
     The changes are saved into the JSON file.
     """
-    args_list = args.split()
+    args_list = shlex.split(args)
 
     if len(args_list) == 0:
         return "** class name missing **"

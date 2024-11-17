@@ -5,6 +5,7 @@ This is module of the create method is console.py
 
 from models import storage
 from models.classes import classes
+import shlex
 
 
 def create_instance(class_name):

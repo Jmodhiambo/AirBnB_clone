@@ -59,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
         and prints its id.
         Usage: create <class_name>
         """
-        result = create_instance(args.strip())
+        result = create_instance(args)
         print(result)
     
     def do_show(self, args):
@@ -67,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
         Shows the string representation of an instance based on class and ID.
         Usage: show <class_name> <id>
         """
-        result = show_instance(args.strip())
+        result = show_instance(args)
         print(result)
 
     def do_destroy(self, args):
@@ -76,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
         The changes are saved into a JSON file
         Usage: destroy <class_name> <id>
         """
-        result = destroy_instance(args.strip())
+        result = destroy_instance(args)
         if result:
             print(result)
 
@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Prints all string representation of all instances based or not on the class name.
         """
-        result = all_instances(args.strip())
+        result = all_instances(args)
         if isinstance(result, list):  # Instances retrieved successfully
             print(result)  # Prints the list of instances.
         elif result:  # Error message
@@ -95,7 +95,7 @@ class HBNBCommand(cmd.Cmd):
         Updates an instance based on class name and ID.
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
-        result = update_instance(args.strip())
+        result = update_instance(args)
         if result:
             print(result)
 
