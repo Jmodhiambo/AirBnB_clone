@@ -82,13 +82,33 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """
-        Prints all string representation of all instances based or not on the class name.
+        Prints all string representations of instances based or not on the class name.
         """
-        result = all_instances(args)
-        if isinstance(result, list):  # Instances retrieved successfully
-            print(result)  # Prints the list of instances.
-        elif result:  # Error message
-            print(result)
+        args = args.strip()
+        if args.endswith(".all()"):
+            class_name = args[:-6].strip()
+            if not class_name:
+                print("** class name missing **")
+                return
+            if class_name not in classes:
+                print("** class doesn't exist **")
+                return
+        else:
+            class_name = args if args else None
+
+        result = all_instances(class_name)
+        print(result)
+
+    def default(self, line):
+        """
+        Overrides the default behavior of cmd.Cmd to handle custom commands
+        like <class name>.all().
+        """
+        args = line.strip()
+        if ".all()" in args:
+            self.do_all(args)
+        else:
+            super().default(line)
 
     def do_update(self, args):
         """
