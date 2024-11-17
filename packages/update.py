@@ -2,6 +2,7 @@
 """
 This module updates the attributes of an instance.
 """
+
 from models import storage
 from models.classes import classes
 
