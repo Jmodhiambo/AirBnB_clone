@@ -6,6 +6,7 @@ Supports interactive and non-interactive modes.
 
 import cmd
 import sys
+import shlex
 from models import storage
 from models.classes import classes
 from packages.show import show_instance
@@ -84,31 +85,114 @@ class HBNBCommand(cmd.Cmd):
         """
         Prints all string representations of instances based or not on the class name.
         """
-        args = args.strip()
-        if args.endswith(".all()"):
-            class_name = args[:-6].strip()
-            if not class_name:
-                print("** class name missing **")
-                return
-            if class_name not in classes:
-                print("** class doesn't exist **")
-                return
-        else:
-            class_name = args if args else None
-
-        result = all_instances(class_name)
+        result = all_instances(args)
         print(result)
+
+    def do_count(self, args):
+        """
+        Retrieves the number of instances of a class.
+        Usage: <class name>.count()
+        """
+        args = args.strip()
+        if not args:
+            print("** class name missing **")
+            return
+        if args not in classes:
+            print("** class doesn't exist **")
+            return
+
+        obj_dict = storage.all()
+        count = sum(1 for obj in obj_dict.values() if obj.__class__.__name__ == args)
+        print(count)
 
     def default(self, line):
         """
-        Overrides the default behavior of cmd.Cmd to handle custom commands
-        like <class name>.all().
+        Handles commands in the format:
+        - <class name>.all()
+        - <class name>.count()
+        - <class name>.show(<id>)
+        - <class name>.destroy(<id>)
+        - <class name>.update(<id>, <attribute name>, <attribute value>)
         """
-        args = line.strip()
-        if ".all()" in args:
-            self.do_all(args)
+        if ".all()" in line:
+            class_name = line.split(".all()")[0].strip()
+            if class_name not in classes:
+                print("** class doesn't exist **")
+                return
+            result = all_instances(class_name)
+            if result:
+                print(result)
+
+        elif ".count()" in line:
+            class_name = line.split(".count()")[0].strip()
+            if class_name not in classes:
+                print("** class doesn't exist **")
+                return
+            self.do_count(class_name)
+
+        elif ".show(" in line:
+            class_name, raw_args = line.split(".show(", 1)
+            class_name = class_name.strip()
+            raw_args = raw_args.strip(")")
+            if class_name not in classes:
+                print("** class doesn't exist **")
+                return
+            if not raw_args:
+                print("** instance id missing **")
+                return
+
+            instance_id = raw_args.strip('"').strip("'")
+            result = show_instance(f"{class_name} {instance_id}")
+            if result:
+                print(result)
+
+        elif ".destroy(" in line:
+            class_name, raw_args = line.split(".destroy(", 1)
+            class_name = class_name.strip()
+            raw_args = raw_args.strip(")")
+            if class_name not in classes:
+                print("** class doesn't exist **")
+                return
+            if not raw_args:
+                print("** instance id missing **")
+                return
+
+            instance_id = raw_args.strip('"').strip("'")
+            result = destroy_instance(f"{class_name} {instance_id}")
+            if result:
+                print(result)
+
+        elif ".update(" in line:
+            class_name, raw_args = line.split(".update(", 1)
+            class_name = class_name.strip()
+            raw_args = raw_args.strip(")")
+
+            if class_name not in classes:
+                print("** class doesn't exist **")
+                return
+
+            args = shlex.split(raw_args)
+            if len(args) < 1:
+                print("** instance id missing **")
+                return
+            instance_id = args[0].strip(",")  # Remove trailing commas
+
+            if len(args) < 2:
+                print("** attribute name missing **")
+                return
+            attribute_name = args[1].strip(",")  # Remove trailing commas
+
+            if len(args) < 3:
+                print("** value missing **")
+                return
+            attribute_value = args[2].strip(",")  # Remove trailing commas
+
+            result = update_instance(f"{class_name} {instance_id} {attribute_name} {attribute_value}")
+            if result:
+                print(result)        
         else:
-            super().default(line)
+            super().default(line)  # Calls the default method of cmd.Cmd for unrecognized commands
+
 
     def do_update(self, args):
         """
