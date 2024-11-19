@@ -214,13 +214,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    # Check if commands are passed as arguments
-    if len(sys.argv) > 1:
-        # Concatenate all arguments into a single command string
-        command = " ".join(sys.argv[1:])
-        interpreter = HBNBCommand()
-        # Process the command and exit
-        interpreter.onecmd(command)
-    else:
-        # Start the interactive loop
-        HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
