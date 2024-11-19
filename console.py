@@ -31,7 +31,6 @@ class HBNBCommand(cmd.Cmd):
         base_model = BaseModel()
         print(base_model.id)
 
-
     def do_quit(self, line):
         """
         Quit command to exit the program.
@@ -44,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
         EOF command to exit the program.
         Usage: Press Ctrl+D to exit.
         """
-        print() # Ensure a newline before exiting
+        print()  # Ensure a newline before exiting
         return True
 
     def emptyline(self):
@@ -56,13 +55,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """
-        Creates a new instance of a valid class, saves it to the JSON file, 
+        Creates a new instance of a valid class, saves it to the JSON file
         and prints its id.
         Usage: create <class_name>
         """
         result = create_instance(args)
         print(result)
-    
+
     def do_show(self, args):
         """
         Shows the string representation of an instance based on class and ID.
@@ -83,7 +82,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """
-        Prints all string representations of instances based or not on the class name.
+        Prints all string representations of instances
+            - based or not on the class name.
         """
         result = all_instances(args)
         print(result)
@@ -102,7 +102,11 @@ class HBNBCommand(cmd.Cmd):
             return
 
         obj_dict = storage.all()
-        count = sum(1 for obj in obj_dict.values() if obj.__class__.__name__ == args)
+
+        # Shortened to avoid pycodestyle error two lines below
+        obj.__class__.__name__ = ob_cn
+
+        count = sum(1 for obj in obj_dict.values() if ob_cn == args)
         print(count)
 
     def default(self, line):
@@ -180,19 +184,24 @@ class HBNBCommand(cmd.Cmd):
             if len(args) < 2:
                 print("** attribute name missing **")
                 return
-            attribute_name = args[1].strip(",")  # Remove trailing commas
+            attr_name = args[1].strip(",")  # Remove trailing commas
 
             if len(args) < 3:
                 print("** value missing **")
                 return
-            attribute_value = args[2].strip(",")  # Remove trailing commas
+            attr_value = args[2].strip(",")  # Remove trailing commas
 
-            result = update_instance(f"{class_name} {instance_id} {attribute_name} {attribute_value}")
+            # Preventing pycodestyle error by having shorter representation
+            class_name = c_name
+            instance_id = i_id
+            attr_name = a_name
+
+            result = update_instance(f"{c_name} {i_id} {a_name} {attr_value}")
             if result:
-                print(result)        
+                print(result)
         else:
-            super().default(line)  # Calls the default method of cmd.Cmd for unrecognized commands
-
+            # Calls the default method of cmd.Cmd for unrecognized commands
+            super().default(line)
 
     def do_update(self, args):
         """
@@ -202,6 +211,7 @@ class HBNBCommand(cmd.Cmd):
         result = update_instance(args)
         if result:
             print(result)
+
 
 if __name__ == '__main__':
     # Check if commands are passed as arguments
