@@ -175,23 +175,14 @@ class HBNBCommand(cmd.Cmd):
 
             # Handle dictionary updates
             if len(args) == 2 and args[1].startswith("{") and args[1].endswith("}"):
-                print(f"Raw dictionary input detected: {args[1]}")
                 instance_id = args[0].strip(",")  # First argument: ID
-                # attr_dict = eval(args[1])  # Convert string to dictionary safely
+                attr_dict = eval(args[1])  # Convert string to dictionary safely
 
-                try:
-                    attr_dict = eval(args[1])  # Safely convert string to dictionary
-                    print(f"Evaluated dictionary: {attr_dict}")
-                except (SyntaxError, ValueError):
-                    print(f"Error evaluating dictionary: {e}")
-                    return
-       
                 if not isinstance(attr_dict, dict):
                     print("** attribute name missing **")
                     return
 
                 for key, value in attr_dict.items():
-                    print(f"Updating: {key} = {value}")
                     # Call update_instance for each key-value pair
                     result = update_instance(f"{class_name} {instance_id} {key} {value}")
                     if result:

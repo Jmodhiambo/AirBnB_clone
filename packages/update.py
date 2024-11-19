@@ -61,5 +61,4 @@ def update_instance(args):
 
     setattr(obj, attribute_name, attribute_value)
     obj.save()
-    print(f"Updated instance {key}: {attribute_name} = {getattr(obj, attribute_name)}")
     return ""
