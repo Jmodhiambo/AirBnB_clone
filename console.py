@@ -5,7 +5,6 @@ Supports interactive and non-interactive modes.
 """
 
 import cmd
-import sys
 import shlex
 from models import storage
 from models.classes import classes
@@ -101,13 +100,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        obj_dict = storage.all()
+        obj_dt = storage.all()
 
-        # Shortened to avoid pycodestyle error two lines below
-        obj.__class__.__name__ = ob_cn
-
-        count = sum(1 for obj in obj_dict.values() if ob_cn == args)
-        print(count)
+        c = sum(1 for obj in obj_dt.values() if obj.__class__.__name__ == args)
+        print(c)  # Print the count number
 
     def default(self, line):
         """
@@ -176,6 +172,33 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             args = shlex.split(raw_args)
+
+            # Handle dictionary updates
+            if len(args) == 2 and args[1].startswith("{") and args[1].endswith("}"):
+                print(f"Raw dictionary input detected: {args[1]}")
+                instance_id = args[0].strip(",")  # First argument: ID
+                # attr_dict = eval(args[1])  # Convert string to dictionary safely
+
+                try:
+                    attr_dict = eval(args[1])  # Safely convert string to dictionary
+                    print(f"Evaluated dictionary: {attr_dict}")
+                except (SyntaxError, ValueError):
+                    print(f"Error evaluating dictionary: {e}")
+                    return
+       
+                if not isinstance(attr_dict, dict):
+                    print("** attribute name missing **")
+                    return
+
+                for key, value in attr_dict.items():
+                    print(f"Updating: {key} = {value}")
+                    # Call update_instance for each key-value pair
+                    result = update_instance(f"{class_name} {instance_id} {key} {value}")
+                    if result:
+                        print(result)
+                return
+
+            # Handle single attribute updates
             if len(args) < 1:
                 print("** instance id missing **")
                 return
@@ -192,9 +215,9 @@ class HBNBCommand(cmd.Cmd):
             attr_value = args[2].strip(",")  # Remove trailing commas
 
             # Preventing pycodestyle error by having shorter representation
-            class_name = c_name
-            instance_id = i_id
-            attr_name = a_name
+            c_name = class_name
+            i_id = instance_id
+            a_name = attr_name
 
             result = update_instance(f"{c_name} {i_id} {a_name} {attr_value}")
             if result:
