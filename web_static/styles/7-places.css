@@ -1,0 +1,30 @@
+.places {
+	display: flex;
+	flex-wrap: wrap; /* Allows items to wrap onto new rows if necessary */
+	align-items: center; /* Center all items horizontally */
+	justify-content: center; /* Center articles horizontally */
+	margin-top: 20px;
+	padding: 20px;
+	gap: 20px; /* Space between articles and rows */
+	width: 100%;
+}
+.places h1 {
+	font-size: 30px;
+	margin: 0;
+	width: 100%; /* Ensures the heading spans the full width */	
+	text-align: left; /* Align title to the left */
+}
+.places article {
+	width: 390px;
+	padding: 20px; /* Adds space inside the article */
+	border: 1px solid #FF5A5F;
+	border-radius: 4px;
+	background-color: white; /* Ensures a white background */
+	text-align: center;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for aesthetics */
+}
+.places h2 {
+	font-size: 30px;
+	margin: 0; /* Removes default margin */
+	text-align: center; /* Centers the text */	
+}
