@@ -1,0 +1,44 @@
+.places {
+	padding: 20px;
+}
+
+.places-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.place {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 20px;
+	width: calc(33.333% - 20px);
+	box-sizing: border-box;
+}
+
+.place h2 {
+	font-size: 18px;
+	margin: 0 0 10px;
+}
+
+.price_by_night {
+    color: red; /* Revert to red */
+    font-weight: bold;
+    font-size: 18px;
+}
+}
+
+.information {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	font-size: 14px;
+	color: #666;
+}
+
+.description {
+	margin-top: 10px;
+	font-size: 14px;
+	color: #555;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Discover amazing places to stay with accessibility-friendly design.">
+		<link rel="stylesheet" href="styles/103-common.css">
+		<link rel="stylesheet" href="styles/103-header.css">
+		<link rel="stylesheet" href="styles/103-footer.css">
+		<link rel="stylesheet" href="styles/103-filters.css">
+		<link rel="stylesheet" href="styles/103-places.css">
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+		<title>AirBnB Clone - Accessible Design</title>
+	</head>
+	<body>
+		<header>
+			<div class="logo" aria-label="AirBnB Logo"></div>
+		</header>
+		<div class="container">
+			<!-- Search Bar Section -->
+			<section class="filters" aria-labelledby="search-section">
+				<h1 id="search-section" class="visually-hidden">Search Section</h1>
+				<div class="search-bar">
+					<label for="search-input" class="visually-hidden">Search for locations or amenities</label>
+					<input id="search-input" type="text" placeholder="Search locations, amenities..." aria-label="Search">
+					<button aria-label="Search Places">Search</button>
+				</div>
+			</section>
+
+			<!-- Places Section -->
+			<section class="places" aria-labelledby="places-section">
+				<h1 id="places-section">Places</h1>
+				<div class="places-container">
+					<!-- Place 1 -->
+					<article class="place" aria-labelledby="place-1-title">
+						<h2 id="place-1-title">My Home</h2>
+						<div class="price_by_night" aria-label="Price per night: $80">$80</div>
+						<div class="information">
+							<div class="max_guest" aria-label="Maximum Guests: 2">
+								<span class="icon"></span>2 Guests
+							</div>
+							<div class="number_rooms" aria-label="Number of Bedrooms: 1">
+								<span class="icon"></span>1 Bedroom
+							</div>
+							<div class="number_bathrooms" aria-label="Number of Bathrooms: 1">
+								<span class="icon"></span>1 Bathroom
+							</div>
+						</div>
+						<div class="description">A cozy 1-bedroom apartment perfect for 2 guests.</div>
+					</article>
+
+					<!-- Place 2 -->
+					<article class="place" aria-labelledby="place-2-title">
+						<h2 id="place-2-title">Tiny House</h2>
+						<div class="price_by_night" aria-label="Price per night: $65">$65</div>
+						<div class="information">
+							<div class="max_guest" aria-label="Maximum Guests: 4">
+								<span class="icon"></span>4 Guests
+							</div>
+							<div class="number_rooms" aria-label="Number of Bedrooms: 2">
+								<span class="icon"></span>2 Bedrooms
+							</div>
+							<div class="number_bathrooms" aria-label="Number of Bathrooms: 1">
+								<span class="icon"></span>1 Bathroom
+							</div>
+						</div>
+						<div class="description">A charming 2-bedroom apartment for a family of 4.</div>
+					</article>
+
+					<!-- Place 3 -->
+					<article class="place" aria-labelledby="place-3-title">
+						<h2 id="place-3-title">A Suite</h2>
+						<div class="price_by_night" aria-label="Price per night: $190">$190</div>
+						<div class="information">
+							<div class="max_guest" aria-label="Maximum Guests: 6">
+								<span class="icon"></span>6 Guests
+							</div>
+							<div class="number_rooms" aria-label="Number of Bedrooms: 3">
+								<span class="icon"></span>3 Bedrooms
+							</div>
+							<div class="number_bathrooms" aria-label="Number of Bathrooms: 3">
+								<span class="icon"></span>3 Bathrooms
+							</div>
+						</div>
+						<div class="description">A luxurious suite for up to 6 guests.</div>
+					</article>
+				</div>
+			</section>
+		</div>
+		<footer>
+			<p>© 2024 AirBnB_clone</p>
+		</footer>
+	</body>
+</html>
